@@ -8,6 +8,7 @@ import { Helmet } from "react-helmet"
 import Nav from "../components/Nav"
 import SEO from "../components/seo"
 import { graphql } from "gatsby"
+import styled from "styled-components"
 
 const IndexPage = ({ data }) => {
   const songData = data.site.siteMetadata.data
@@ -28,7 +29,7 @@ const IndexPage = ({ data }) => {
     setSongInfo({ ...songInfo, currentTime: current, duration })
   }
   return (
-    <section className="index">
+    <StyledIndex className="index">
       <GlobalStyles />
       <Helmet>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -41,12 +42,15 @@ const IndexPage = ({ data }) => {
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} />
       <Player
+        setCurrentSong={setCurrentSong}
         currentSong={currentSong}
         isPlaying={isPlaying}
         setIsPlaying={setIsPlaying}
         audioRef={audioRef}
         songInfo={songInfo}
         setSongInfo={setSongInfo}
+        songs={songs}
+        setSongs={setSongs}
       />
       <Library
         songs={songs}
@@ -58,7 +62,7 @@ const IndexPage = ({ data }) => {
         isPlaying={isPlaying}
         libraryStatus={libraryStatus}
       />
-      <audio
+      <audio controls
         onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
         ref={audioRef}
@@ -71,7 +75,7 @@ const IndexPage = ({ data }) => {
           src={currentSong.audio}
         ></track>
       </audio>
-    </section>
+    </StyledIndex>
   )
 }
 
@@ -89,6 +93,15 @@ export const query = graphql`
         }
       }
     }
+  }
+`
+const StyledIndex = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  audio {
+    margin: 0 auto;
   }
 `
 
