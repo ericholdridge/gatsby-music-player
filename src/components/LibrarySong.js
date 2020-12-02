@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { playAudio } from "../util"
+import Img from "gatsby-image"
 
 const LibrarySong = ({
   song,
@@ -29,9 +30,11 @@ const LibrarySong = ({
       onClick={songSelectHandler}
       className={`library-song ${song.active ? "selected" : ""}`}
     >
-      <img src={song.cover} alt={song.name} />
+      <div className="image">
+        <Img fluid={song.cover.asset.fluid} alt={song.title} />
+      </div>
       <div className="song-description">
-        <h3>{song.name}</h3>
+        <h3>{song.title}</h3>
         <h4>{song.artist}</h4>
       </div>
     </StyledSong>
@@ -45,9 +48,12 @@ const StyledSong = styled.div`
   align-items: center;
   cursor: pointer;
   transition: background 0.2s ease-in-out;
-  img {
-    width: 30%;
+  .image {
+    width: 20%;
     border-radius: 50%;
+    .gatsby-image-wrapper {
+      border-radius: 50%;
+    }
   }
   &:hover {
     background: rgb(222, 222, 255);

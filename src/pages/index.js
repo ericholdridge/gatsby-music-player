@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react"
 import GlobalStyles from "../styles/GlobalStyles"
 import Player from "../components/Player"
 import Song from "../components/Song"
-import SongData from "../util"
 import Library from "../components/Library"
 import { Helmet } from "react-helmet"
 import Nav from "../components/Nav"
@@ -11,7 +10,7 @@ import { graphql } from "gatsby"
 import styled from "styled-components"
 
 const IndexPage = ({ data }) => {
-  const songData = data.site.siteMetadata.data
+  const songData = data.allSanitySongs.nodes
   const [songs, setSongs] = useState(songData)
   const [currentSong, setCurrentSong] = useState(songs[0])
   const [isPlaying, setIsPlaying] = useState(false)
@@ -40,7 +39,7 @@ const IndexPage = ({ data }) => {
       </Helmet>
       <SEO title="Music Player" />
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
-      <Song currentSong={currentSong} />
+      <Song currentSong={currentSong} />       
       <Player
         setCurrentSong={setCurrentSong}
         currentSong={currentSong}
@@ -62,7 +61,8 @@ const IndexPage = ({ data }) => {
         isPlaying={isPlaying}
         libraryStatus={libraryStatus}
       />
-      <audio controls
+      <audio
+        controls
         onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
         ref={audioRef}
@@ -79,22 +79,44 @@ const IndexPage = ({ data }) => {
   )
 }
 
+// export const query = graphql`
+//   query {
+//     site {
+//       siteMetadata {
+//         data {
+//           name
+//           cover
+//           artist
+//           audio
+//           id
+//           active
+//         }
+//       }
+//     }
+//   }
+// `
+
 export const query = graphql`
   query {
-    site {
-      siteMetadata {
-        data {
-          name
-          cover
-          artist
-          audio
-          id
-          active
+    allSanitySongs {
+      nodes {
+        title
+        cover {
+          asset {
+            fluid {
+              ...GatsbySanityImageFluid
+            }
+          }
         }
+        artist
+        audio
+        active
+        _id
       }
     }
   }
 `
+
 const StyledIndex = styled.section`
   width: 100%;
   display: flex;
