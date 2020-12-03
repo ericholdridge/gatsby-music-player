@@ -20,7 +20,7 @@ const Library = ({
       <div className="library-songs">
         {songs.map(song => (
           <LibrarySong
-            key={song.id}
+            key={song._id}
             song={song}
             songs={songs}
             setSongs={setSongs}

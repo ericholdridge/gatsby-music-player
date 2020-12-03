@@ -7,7 +7,10 @@ const Song = ({ currentSong }) => {
     <StyledSong className="song">
       {console.log(currentSong)}
       <div className="image">
-        <Img fluid={currentSong.cover.asset.fluid} alt={currentSong.title} />
+        <Img
+          fluid={currentSong.cover.asset.fluid}
+          alt={currentSong.title}
+        />
       </div>
       <h2>{currentSong.title}</h2>
       <h3>{currentSong.artist}</h3>

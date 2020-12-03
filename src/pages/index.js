@@ -62,7 +62,6 @@ const IndexPage = ({ data }) => {
         libraryStatus={libraryStatus}
       />
       <audio
-        controls
         onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
         ref={audioRef}
@@ -78,23 +77,6 @@ const IndexPage = ({ data }) => {
     </StyledIndex>
   )
 }
-
-// export const query = graphql`
-//   query {
-//     site {
-//       siteMetadata {
-//         data {
-//           name
-//           cover
-//           artist
-//           audio
-//           id
-//           active
-//         }
-//       }
-//     }
-//   }
-// `
 
 export const query = graphql`
   query {

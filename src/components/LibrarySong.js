@@ -18,7 +18,7 @@ const LibrarySong = ({
       songs.map(targetSong => {
         return {
           ...targetSong,
-          active: targetSong.id === song.id,
+          active: targetSong._id === song._id,
         }
       })
     )

@@ -29,7 +29,7 @@ const Player = ({
       songs.map(targetSong => {
         return {
           ...targetSong,
-          active: targetSong.id === nextPrev.id,
+          active: targetSong._id === nextPrev._id,
         }
       })
     )
@@ -52,7 +52,7 @@ const Player = ({
   }
 
   const skipTrackHandler = async direction => {
-    let currentIndex = songs.findIndex(song => song.id === currentSong.id)
+    let currentIndex = songs.findIndex(song => song._id === currentSong._id)
     if (direction === "skip-forward") {
       await setCurrentSong(songs[(currentIndex + 1) % songs.length])
       activeLibraryHandler(songs[(currentIndex + 1) % songs.length])
