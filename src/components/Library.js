@@ -47,6 +47,7 @@ const StyledLibrary = styled.div`
   transform: translateX(-100%);
   transition: all 0.5s ease;
   opacity: 0;
+  background: #fff;
   h2 {
     text-align: center;
     padding: 14px 0;
